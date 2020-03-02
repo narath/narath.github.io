@@ -56,6 +56,7 @@ plugins:
 # console theme settings https://github.com/b2a3e8/jekyll-theme-console
 header_pages:
   - index.markdown
+  - maker.markdown
   - about.markdown
 
 # footer: 'Follow on twitter'
