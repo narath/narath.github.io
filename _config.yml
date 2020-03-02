@@ -28,8 +28,8 @@ twitter_username: narathc
 github_username:  narath
 
 # Build settings
-theme: jekyll-theme-console
-remote_theme: b2a3e8/jekyll-theme-console
+# theme: jekyll-theme-console
+theme: minima
 plugins:
   - jekyll-feed
 
