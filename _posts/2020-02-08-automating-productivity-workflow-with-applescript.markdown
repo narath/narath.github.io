@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Automating my productivity workflow with a little applescript"
 date: "2020-02-08 08:28:37 -0500"
 ---

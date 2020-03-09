@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Scripting in Freeplane"
 date: "2020-02-21 12:34:58 -0500"
 categories: [productivity]

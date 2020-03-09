@@ -19,7 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: dev.narath.io
-email: narathc@gmail.com
+# email: narathc_aT_gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   A developer blog exploring the application of code and data science to the agile practice of medicine and the best care possible for all from Narath Carlile.
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -28,7 +28,7 @@ twitter_username: narathc
 github_username:  narath
 
 # Build settings
-# theme: jekyll-theme-console
+# theme: jekyll-theme-hacker
 theme: minima
 plugins:
   - jekyll-feed
@@ -60,7 +60,9 @@ header_pages:
   - about.markdown
 
 # footer: 'Follow on twitter'
-# google_analytics: UA-NNNNNNNN-NN
+
+# hacker theme settings
+google_analytics: UA-159539119-1
 
 
 

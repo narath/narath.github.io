@@ -1,8 +1,17 @@
 ---
 title: /home
-layout: home
+layout: default
 ---
 
-# Welcome
+<!-- menu = main page categories -->
 
-This is dev.narath.io. This is primarily code (mostly ruby and rails) and data science (mostly R) mostly focused on using it to solve problems in health informatics, and to help people thrive. 
+<!-- show posts -->
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+<!-- footer? -->
+
