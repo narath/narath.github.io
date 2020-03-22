@@ -28,10 +28,12 @@ twitter_username: narathc
 github_username:  narath
 
 # Build settings
-# theme: jekyll-theme-hacker
-theme: minima
+# theme: minima
+remote_theme: b2a3e8/jekyll-theme-console
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-seo-tag
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -59,8 +61,7 @@ header_pages:
   - maker.markdown
   - about.markdown
 
-# footer: 'Follow on twitter'
-
+footer: 'Follow us on twitter'
 # hacker theme settings
 google_analytics: UA-159539119-1
 

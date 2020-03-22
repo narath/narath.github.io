@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "More automation please"
 date: "2020-02-10 09:25:49 -0500"
 ---

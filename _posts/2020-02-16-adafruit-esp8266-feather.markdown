@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Adafruit Esp8266 Feather"
 date: "2020-02-16 16:50:41 -0500"
 categories: [maker]

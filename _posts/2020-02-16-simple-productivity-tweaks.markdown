@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Simple Productivity Tweaks"
 date: "2020-02-16 08:11:42 -0500"
 tags: [vim]

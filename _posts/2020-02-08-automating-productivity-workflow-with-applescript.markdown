@@ -1,11 +1,9 @@
 ---
-layout: default
+layout: post
 title: "Automating my productivity workflow with a little applescript"
 date: "2020-02-08 08:28:37 -0500"
 ---
 I spent a little time today learning applescript to automate some of my productivity workflow, and it was very empowering!
-
-What was I able to accomplish?
 
 ## Ideas
 
@@ -16,7 +14,7 @@ I keep track of my ideas in a [freeplane](https://www.freeplane.org/wiki/index.p
 
 Here's the script I am using:
 
-```
+```applescript
 on run argv
   if (count of argv > 0) then
 	set hasQuery to true
@@ -47,7 +45,7 @@ I also keep track of my daily todos in a "Today!" node in my Focus mindmap. This
 
 Here is that script:
 
-```
+```applescript
 on run argv
   if (count of argv > 0) then
 	set hasQuery to true
