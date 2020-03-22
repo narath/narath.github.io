@@ -58,11 +58,13 @@ plugins:
 # console theme settings https://github.com/b2a3e8/jekyll-theme-console
 header_pages:
   - index.markdown
+  - productivity.markdown
   - maker.markdown
   - about.markdown
 
-footer: 'Follow us on twitter'
-# hacker theme settings
+# footer: 'Follow us on twitter'
+
+# console theme settings
 google_analytics: UA-159539119-1
 
 
