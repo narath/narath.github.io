@@ -149,21 +149,21 @@ bundle install
 bundle exec cap install
 ```
 
-{% gist 56b858aa8c5dedfdea9336e79511be04 config-deploy.rb %}
+{% gist 56b858aa8c5dedfdea9336e79511be04 config_deploy.rb %}
 
 Note: this has a basic setup for your server, but also code at the bottom that will upload your shared config files if they don't exist on the server.
 
-{% gist 56b858aa8c5dedfdea9336e79511be04 config-deploy-production.rb %}
+{% gist 56b858aa8c5dedfdea9336e79511be04 config_deploy_production.rb %}
 
 ### Add Capistrano tasks
 
 This task will let you quickly tail log files on the server.
 
-{% gist 56b858aa8c5dedfdea9336e79511be04 lib-capistrano-logs.rake %}
+{% gist 56b858aa8c5dedfdea9336e79511be04 lib_capistrano_logs.rake %}
 
 This task is needed to properly restart the puma service after a deploy.
 
-{% gist 56b858aa8c5dedfdea9336e79511be04 lib-capistrano-deploy_restart.rake %}
+{% gist 56b858aa8c5dedfdea9336e79511be04 lib_capistrano_deploy_restart.rake %}
 
 **Important: in order for this to work you need to make this sudo command not require a password.**
 
