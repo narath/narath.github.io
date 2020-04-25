@@ -181,6 +181,18 @@ This was a helpful [references](https://teamtreehouse.com/library/restarting-uni
 
 # 4. Deploy
 
+## Make sure your ssh agent is setup
+
+On your mac, ssh agent should already be setup. Check to see that the agent has your identity loaded.
+
+```sh
+ssh-add -l
+```
+
+If not, then just enter `ssh-add` and your default identity should be loaded.
+
+## Do a partial deploy to be able to setup the database
+
 You should now be ready to deploy. There is still a little work since your database has not been setup. 
 
 ```sh
@@ -201,7 +213,11 @@ Go into the latest release folder
 RAILS_ENV=production bundle exec rails db:setup
 ```
 
-This should setup the db. Now rerun your deployment and it should work.
+This should setup the db. 
+
+## Do a complete deployment
+
+Now rerun your deployment and it should work.
 
 ```sh
 cap production deploy --trace
