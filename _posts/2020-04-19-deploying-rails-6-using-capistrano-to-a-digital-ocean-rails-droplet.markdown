@@ -96,6 +96,17 @@ ln -s /etc/nginx/sites-available/your-site-domain-name /etc/nginx/sites-enabled/
 
 At this point I remove the default site from sites-enabled (`rm /etc/nginx/sites-enabled/rails`).
 
+### Install and run certbot
+
+```sh
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+# ensure 443 is open
+sudo ufw status
+sudo certbot --nginx -d your.site.name
+```
+
 ### Make sure you setup a renewal
 
 Certbot can do automated renewals. This [post](https://www.vultr.com/docs/how-to-install-and-configure-ruby-with-rbenv-rails-mariadb-nginx-ssl-and-passenger-on-ubuntu-17-04) described a nice crontab that will do the renewal for you. If your site is not due for a renewal, Certbot will not attempt renewal (which is great because you are limited to a certain number of renewals each period).
@@ -147,11 +158,20 @@ EDITOR=vim rails credentials:edit
 ```sh
 bundle install
 bundle exec cap install
+
+### Update your Capfile
+
+{% gist 56b858aa8c5dedfdea9336e79511be04 Capfile %}
+
+### Update config/deploy.rb
+
 ```
 
 {% gist 56b858aa8c5dedfdea9336e79511be04 config_deploy.rb %}
 
 Note: this has a basic setup for your server, but also code at the bottom that will upload your shared config files if they don't exist on the server.
+
+### Update config/deploy/production.rb
 
 {% gist 56b858aa8c5dedfdea9336e79511be04 config_deploy_production.rb %}
 
