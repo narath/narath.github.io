@@ -45,10 +45,14 @@ As root or rails
 
 ```sh
 journalctl -u rails.service
+```
 
-# Add -f to follow
+Add -f to follow.
+
+```sh
 journalctl -u rails.service -f
 ```
+
 # 2. Setup a domain and LetsEncrypt
 
 (Note: you don't have to do this step, you can deploy with capistrano using just an IP, but you cannot use https that way (as far as I know)).
@@ -102,7 +106,11 @@ At this point I remove the default site from sites-enabled (`rm /etc/nginx/sites
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install python-certbot-nginx
-# ensure 443 is open
+```
+
+Make sure that port 443 is open (for nginx)
+
+```sh
 sudo ufw status
 sudo certbot --nginx -d your.site.name
 ```
@@ -197,7 +205,7 @@ sudo visudo -f /etc/sudoers.d/rails
 rails ALL=NOPASSWD: /bin/systemctl restart rails.service
 ```
 
-This was a helpful [references](https://teamtreehouse.com/library/restarting-unicorn). Note: you are only allowing that single command to be run by that user as sudo without a password, so it is not making all sudo commands not require a password.
+This was a helpful [reference](https://teamtreehouse.com/library/restarting-unicorn). Note: you are only allowing that single command to be run by that user as sudo without a password, so it is not making all sudo commands not require a password.
 
 # 4. Deploy
 
@@ -243,8 +251,30 @@ Now rerun your deployment and it should work.
 cap production deploy --trace
 ```
 
-# Appendix/FAQ
+# 5. Update and restart your services
 
+You need to update rails.service to use production and point to your app. As root:
+
+```sh
+sudo vim /etc/systemd/system/rails.service
+```
+
+Make sure the WorkingDirectory and ExecStart.
+
+```
+WorkingDirectory=/home/rails/appname/current
+ExecStart=/bin/bash -lc 'RAILS_ENV=production bundle exec puma'
+```
+
+Reload and restart the services.
+
+```sh
+systemctl daemon-reload
+systemctl restart rails.service
+journalctl -u rails.service -f
+```
+
+# Appendix/FAQ
 
 ## How to access Postgres as the postgres user
 
