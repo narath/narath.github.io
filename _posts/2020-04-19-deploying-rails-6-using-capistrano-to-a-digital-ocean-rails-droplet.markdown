@@ -25,33 +25,6 @@ This will setup
 * a deploy user "rails" that also vendors gems
   * so to access rails console/logs/update gems/launch puma - you need to "sudo -i -u rails"
 
-## Where are logs stored?
-
-### Rails logs
-
-Once deployed with Capistrano, these will be stored in /home/rails/#{app}/shared/logs. The "rails" user has access to this. Later we will have a capistrano task to allow you to quickly tail these.
-
-### Nginx
-
-As root:
-
-```sh
-less /var/log/nginx/error.log
-```
-
-### Rails.service / Puma logs
-
-As root or rails
-
-```sh
-journalctl -u rails.service
-```
-
-Add -f to follow.
-
-```sh
-journalctl -u rails.service -f
-```
 
 # 2. Setup a domain and LetsEncrypt
 
@@ -102,11 +75,39 @@ At this point I remove the default site from sites-enabled (`rm /etc/nginx/sites
 
 ### Install and run certbot
 
+On Ubuntu 20.04, the latest guidance is here: https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx
+
+```sh
+# Snap is already installed in 20.04
+snap --version
+# Refresh it
+sudo snap install core; sudo snap refresh core
+# Certbot is installed by default, but is an older version
+certbot --version
+sudo apt-get remove certbot
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+certbot --version
+# Make sure port 443 is accessible
+sudo ufw status
+# Let certbot update your site
+sudo certbot --nginx -d app.maketimeflow.com
+# Confirm the changes
+vim app.maketimeflow.com
+# Check renewal
+sudo certbot renew --dry-run
+# It is automatically set to renew as a system timer
+systemctl list-timers
+```
+
+#### On Ubuntu 18.04
+
 ```sh
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 sudo apt-get install python-certbot-nginx
 ```
+
 
 Make sure that port 443 is open (for nginx)
 
@@ -115,7 +116,7 @@ sudo ufw status
 sudo certbot --nginx -d your.site.name
 ```
 
-### Make sure you setup a renewal
+##### Make sure you setup a renewal
 
 Certbot can do automated renewals. This [post](https://www.vultr.com/docs/how-to-install-and-configure-ruby-with-rbenv-rails-mariadb-nginx-ssl-and-passenger-on-ubuntu-17-04) described a nice crontab that will do the renewal for you. If your site is not due for a renewal, Certbot will not attempt renewal (which is great because you are limited to a certain number of renewals each period).
 
@@ -139,12 +140,23 @@ certbot --reinstall -d your.site.domain-name
 
 # 3. Create your Rails app and setup Capistrano to deploy it
 
-The server is setup with Ruby 2.6.5, so use this for local development. 
+Update: The server is setup with Ruby 2.7.2, so use this for local development.
+
+```sh
+rbenv install 2.7.2
+rbenv local 2.7.2
+ruby --version
+gem install bundler
+gem install rails
+bundle install --binstubs .bundle/bin
+rbenv rehash
+```
 
 ## Create a Rails app with postgresql db
 
 ```sh
 rails new app-name --database postgresql
+bin/setup
 ```
 
 ## Setup your database config and credentials
@@ -227,6 +239,14 @@ You should now be ready to deploy. There is still a little work since your datab
 cap production deploy --trace
 ```
 
+Note: this failed on a newer version of the droplet since it looks like it has rvm installed, but it does not have a link to it in the expected spot. So you might see an error like `rvm stderr: bash: /home/rails/.rvm/bin/rvm: No such file or directory`. To fix this add a link in the home dir on your server:
+
+```sh
+ln -s /usr/share/rvm .rvm
+```
+
+Run again.
+
 This will break because the DB is not setup, but the code is there now with the credentials to do the setup.
 
 As rails
@@ -275,6 +295,35 @@ journalctl -u rails.service -f
 ```
 
 # Appendix/FAQ
+
+## Where are logs stored?
+
+### Rails logs
+
+Once deployed with Capistrano, these will be stored in /home/rails/#{app}/shared/logs. The "rails" user has access to this. Later we will have a capistrano task to allow you to quickly tail these.
+
+### Nginx
+
+As root:
+
+```sh
+less /var/log/nginx/error.log
+```
+
+### Rails.service / Puma logs
+
+As root or rails
+
+```sh
+journalctl -u rails.service
+```
+
+Add -f to follow.
+
+```sh
+journalctl -u rails.service -f
+```
+
 
 ## How to access Postgres as the postgres user
 
