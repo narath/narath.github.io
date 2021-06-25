@@ -15,3 +15,7 @@ This was [a very helpful guide for the rails setup](https://blog.makersacademy.c
 
 This was [a very helpful guide for setting up the layouts](https://www.digitalocean.com/community/tutorials/how-to-add-bootstrap-to-a-ruby-on-rails-application).
 
+It is probably simpler now to just use yarn to add bootstrap to rails. See [this article](https://dev.to/render/deploying-your-rails-6-app-4an4)
+
+
+
